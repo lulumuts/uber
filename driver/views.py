@@ -1,14 +1,14 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .forms import SignUpForm
 from .tokens import account_activation_token
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.utils.encoding import force_text
-from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_bytes,force_text
 from .models import Driver
 
 
@@ -27,17 +27,18 @@ def signup(request):
             print(user)
             current_site = get_current_site(request)
             subject = 'Activate your Uber Account'
-            message = render_to_string('account_activation_email.html',{
+            message = render_to_string('driver/account_activation_email.html',{
                 'user' : user,
                 'domain' : current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token':account_activation_token.make_token(user),
             })
             user.email_user(subject, message)
-            return redirect ('account_activation_sent')
+            return redirect('account_activation_sent')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form':form})
+
 
 def activate(request, uidb64, token):
     try:
@@ -51,9 +52,21 @@ def activate(request, uidb64, token):
         user.driver.email_confirmed = True
         user.save()
         login(request, user)
-        return redirect('driver_home')
+        return redirect('/')
     else:
-        return render(request, 'account_activation_invalid.html')
+        return render(request, 'driver/account_activation_invalid.html')
 
 def account_activation_sent(request):
-    return render(request, 'account_activation_sent')
+    current_user = request.user
+    if current_user.is_authenticated():
+        return redirect('account_activation_sent')
+    return render(request, 'driver/account_activation_sent.html')
+
+'''
+A function that processes the car registration information
+
+def car_registry(request):
+
+def destination(request):
+
+'''

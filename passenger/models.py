@@ -11,8 +11,8 @@ class Passenger(models.Model):
     email_confirmed = models.BooleanField(default=False)
     name= models.CharField(max_length=60)
     phone = models.IntegerField()
-    final_destination = models.ForeignKey(Destination)
-    pickup_point = models.ForeignKey(Pickup_Location)
+    final_destination = models.ForeignKey(Destination,null=True)
+    pickup_point = models.ForeignKey(Pickup_Location,null=True)
 
 # @receiver(post_save, sender=User)
 # def update_user_passenger(sender, instance, created, **kwargs):
