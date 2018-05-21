@@ -21,6 +21,7 @@ from . import views
 
 
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.main, name="main"),
@@ -29,7 +30,7 @@ urlpatterns = [
     url(r'^account_activation_sent/$', core_views.account_activation_sent, name='account_activation_sent'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         core_views.activate, name='activate'),
-    url(r'^logout/$', core_views.logout, {"next_page": '/'}),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 
 
 ]
