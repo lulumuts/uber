@@ -1,16 +1,12 @@
-
-
 {% load leaflet_tags %}
 <html>
   <head>
-   {% leaflet_js plugins="forms" %}
-   {% leaflet_css plugins="forms" %}
+   {% leaflet_js %}
+   {% leaflet_css %}
   </head>
   <body>
-    <h1>Edit {{ object }}</h1>
-    <form action="POST">
-        {{ form }}
-        <input type="submit"/>
-    </form>
+    <h1>Edit </h1>
+    {% leaflet_map "gis" %}
+
   </body>
 </html>
