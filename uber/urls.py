@@ -18,7 +18,9 @@ from django.contrib import admin
 from driver import views as core_views
 from driver.forms import SignUpForm
 from . import views
+from django.contrib.gis import admin
 
+admin.autodiscover()
 
 
 

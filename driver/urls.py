@@ -5,6 +5,7 @@ from django.contrib.auth import views
 from django.contrib.auth.views import logout
 
 
+
 app_name = "driver"
 
 urlpatterns=[
@@ -13,5 +14,6 @@ urlpatterns=[
     url(r'^signup/$', core_views.signup, name='signup'),
     url(r'^logout/$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^maps/$',core_views.geojson, name='geojson')
 
 ]

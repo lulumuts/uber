@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'driver.apps.DriverConfig',
     'passenger.apps.PassengerConfig',
     'bootstrap3',
+    'django.contrib.gis',
+    'leaflet',
+
 ]
 
 MIDDLEWARE = [
@@ -80,15 +83,19 @@ WSGI_APPLICATION = 'uber.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'uber',
         'USER': 'lulumutuli',
         'PASSWORD': 'lulu',
+        'HOST': 'localhost',
+        'PORT': '5432',
+
     }
 }
 
 db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+DATABASES['geodjango'] = dj_database_url.config()
+DATABASES['geodjango']['NAME'] = 'uber2'
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -146,3 +153,8 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 LOGOUT_REDIRECT_URL='/driver'
 LOGIN_REDIRECT_URL='/driver'
+
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (-.023, 36.87),
+    'DEFAULT_ZOOM':5,
+}

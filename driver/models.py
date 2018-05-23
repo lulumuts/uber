@@ -1,7 +1,15 @@
 from django.db import models
+from django.contrib.gis.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.contrib.gis.db.models.proxy import SpatialProxy
 from django.dispatch import receiver
+from django.contrib.gis.geos import (
+    GeometryCollection, GEOSException, GEOSGeometry, LineString,
+    MultiLineString, MultiPoint, MultiPolygon, Point, Polygon
+)
+
+
 
 
 class Destination(models.Model):
@@ -38,6 +46,8 @@ class Pickup_Location(models.Model):
     name=models.CharField(max_length=100)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    location=models.PointField(srid=4326)
+    objects=models.GeoManager()
 
 
     def __str__(self):

@@ -9,7 +9,7 @@ from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils.encoding import force_bytes,force_text
-from .models import Driver
+from .models import Driver,Pickup_Location
 
 
 
@@ -70,3 +70,9 @@ def car_registry(request):
 def destination(request):
 
 '''
+
+
+#
+def geojson(request):
+    geo=Pickup_Location.objects.all()
+    return render(request, "driver/map.html", {'geo': geo})
