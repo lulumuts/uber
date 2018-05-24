@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'django.contrib.gis',
     'leaflet',
+    'djgeojson'
 
 ]
 

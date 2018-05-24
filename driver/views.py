@@ -79,4 +79,19 @@ def map_view(request):
     return HttpResponse(pickups, content_type="json")
 
 def pickup(request):
-    return render(request, 'driver/pickup.html')
+    pickups=Pickup_Location.objects.all()
+    print(pickups)
+    return render(request, 'driver/pickup.html',{'pickups':pickups})
+
+@login_required(login_url='/accounts/login/')
+def new_driver(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form= DriverForm(request.POST, request.FILES)
+        if form.is_valid():
+            driver = form.save(commit = False)
+            driver.driver_user = current_user
+            driver.save()
+    else:
+        form = DriverForm()
+    return render(request, 'driver/profile.html',{"form":form})

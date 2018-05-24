@@ -1,5 +1,7 @@
 {%load static %}
 {% load leaflet_tags %}
+{% load geojson_tags %}
+
 <html>
   <head>
    {% leaflet_js %}
@@ -9,12 +11,13 @@
   <body>
     <h1>Edit </h1>
     <script type="text/javascript">
-            function our_layers(map.options){
-              var datasets = new L.GeoJSON.AJAX("{% url 'driver:map_view' %}"
-            )};
-            datasets.addTo(map);
-          }
+      var collection = {{ pickups|geojsonfeature|safe }};
+      function map_init(map, options) {
+          L.geoJson(collection).addTo(map);
+
+      }
     </script>
-    {% leaflet_map "gis" callback="window.our_layers"  %}
+
+    {% leaflet_map "gis" callback="window.map_init" %}
   </body>
 </html>

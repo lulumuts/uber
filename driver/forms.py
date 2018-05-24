@@ -18,4 +18,10 @@ class MapsForm(forms.ModelForm):
 
     class Meta:
         model = Pickup_Location
-        fields = ('name', 'location')
+        fields = ('name', 'geom')
+
+class DriverForm(forms.ModelForm):
+
+    class Meta:
+        model= Driver
+        exclude = ['driver_user','email_confirmed']
