@@ -3,10 +3,18 @@
   <head>
    {% leaflet_js %}
    {% leaflet_css %}
+   <script type="text/javascript" src="{% static 'js/leaflet.ajax.js'%}"></script>
   </head>
   <body>
     <h1>Edit </h1>
-    {% leaflet_map "gis" %}
 
+    <script type="text/javascript">
+            function our_layers(map.options){
+              var datasets = new L.GeoJSON.AJAX("{% url 'pickup' %}"
+            )};
+            datasets.addTo(map);
+          }
+    </script>
+    {% leaflet_map "gis" callback = "window.our_layers" %}
   </body>
 </html>

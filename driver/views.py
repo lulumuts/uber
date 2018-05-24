@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils.encoding import force_bytes,force_text
 from .models import Driver,Pickup_Location
+from django.core.serializers import serialize
+from django.http import HttpResponse
 
 
 
@@ -71,8 +73,10 @@ def destination(request):
 
 '''
 
+def map_view(request):
+    pickups=serialize('geojson',Pickup_Location.objects.all())
+    print(pickups)
+    return HttpResponse(pickups, content_type="json")
 
-#
-def geojson(request):
-    geo=Pickup_Location.objects.all()
-    return render(request, "driver/map.html", {'geo': geo})
+def pickup(request):
+    return render(request, 'driver/pickup.html')

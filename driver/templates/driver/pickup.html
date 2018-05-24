@@ -1,0 +1,14 @@
+{%load static %}
+{% load leaflet_tags %}
+<html>
+  <head>
+   {% leaflet_js %}
+   {% leaflet_css %}
+   <script type="text/javascript" src="{% static 'js/leaflet.ajax.js'%}"></script>
+  </head>
+  <body>
+    <h1>Edit </h1>
+
+    {% leaflet_map "gis" callback="window.our_layers"  %}
+  </body>
+</html>
