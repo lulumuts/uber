@@ -34,5 +34,4 @@ urlpatterns = [
         core_views.activate, name='activate'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
 
-
 ]

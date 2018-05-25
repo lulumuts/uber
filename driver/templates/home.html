@@ -7,7 +7,11 @@
 
 
 
-<a href="{% url 'driver:signup' %}"><h1>driver</h1></a>
 
-<h2>Set up Your profile</h2>
+{% if user.is_authenticated %}
+
+<h1 style="margin-left:20vw;">hello {{user.username}}</h1>
+
+<h2><a href="{% url 'driver:profile'%}">Register your car here!</a></h2>
+{%endif%}
 {% endblock %}

@@ -11,13 +11,13 @@ from django.contrib.gis.geos import (
 
 
 
-
 class Destination(models.Model):
-    name= models.CharField(max_length=100)
+    driver_place=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    place= models.CharField(max_length=100)
 
 
     def __str__(self):
-        return str(self.name)
+        return str(self.place)
 
     def save_destination(self):
         self.save()
@@ -27,6 +27,8 @@ class Destination(models.Model):
 
 
 class Car(models.Model):
+    car_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    car_photo=models.ImageField(upload_to = 'driver/static/',blank=True)
     brand = models.CharField(max_length=100)
     num_plate = models.CharField(max_length=60)
     num_of_seats= models.IntegerField()
@@ -61,6 +63,7 @@ class Pickup_Location(models.Model):
 
 # Create your models here.
 class Driver(models.Model):
+
     driver_user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     car = models.ForeignKey(Car,null=True)
@@ -81,6 +84,11 @@ class Driver(models.Model):
     def delete(self):
         self.email_confirmed = False
         self.save()
+
+    @staticmethod
+    def update_driver(id,driver_image,name,phone):
+
+        Driver.objects.filter(pk=id).update(driver_image=driver_image,name=name,phone=phone)
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):

@@ -12,6 +12,7 @@
   {%endif%}
 
   {% block styles %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     {% bootstrap_css %}
 
   {% endblock %}
@@ -26,6 +27,7 @@
     {% block scripts %}
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script type="text/javascript" src="{% static 'js/leaflet.ajax.js'%}"></script>
     {% bootstrap_javascript %}
 
     {% endblock %}

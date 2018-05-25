@@ -1,3 +1,4 @@
+
 {%load static %}
 {% load leaflet_tags %}
 {% load geojson_tags %}
@@ -9,7 +10,24 @@
    <script type="text/javascript" src="{% static 'js/leaflet.ajax.js'%}"></script>
   </head>
   <body>
-    <h1>Edit </h1>
+
+
+
+
+
+
+<div class="container" style="float:right;margin-right:20vw;margin-top:1vh;">
+  <h3>Pickup Points</h3>
+    {% for pickup in pickups %}
+
+    <li>{{pickup.name}}</li>
+    {% endfor %}
+
+</div>
+
+
+
+    <div class="container" style="width:50%;margin-left:10vw;margin-top:10vw;">
     <script type="text/javascript">
       var collection = {{ pickups|geojsonfeature|safe }};
       function map_init(map, options) {
@@ -19,5 +37,8 @@
     </script>
 
     {% leaflet_map "gis" callback="window.map_init" %}
+    <p><a href="{% url 'driver:start'%}">BACK</p>
+  </div>
+
   </body>
 </html>

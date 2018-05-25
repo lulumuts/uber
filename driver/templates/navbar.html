@@ -9,7 +9,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand">UBER</a>
+      <a class="navbar-brand" style="margin-left:-20vw;" href="{% url 'driver:driver_home'%}">UBER</a>
     </div>
 
     <!-- Adding a search form -->
@@ -18,20 +18,13 @@
       <!-- search form end -->
       <div class="col-sm-6 col-md-6">
         {% if user.is_authenticated %}
-        <ul>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
 
-            <ul class="dropdown-menu" role="menu">
+            <a href="/driver/logout" style="margin-left:43vw;color:grey;">LOGOUT</a>
 
-              <li><a href="/driver/accounts/password/change">Change Password</a></li>
-              <li><a href="/driver/logout">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
         {% else %}
-        <li><a class="btn btn-default" href="/driver/accounts/login">Login</a>
-        </li>
+        <a href="{% url 'driver:signup' %}"><h1>SIGN UP</h1></a>
+        <p><a class="btn btn-default" href="/driver/accounts/login">Login</p>
+
         {%endif%}
       </div>
   </div>

@@ -71,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -157,5 +158,7 @@ LOGIN_REDIRECT_URL='/driver'
 
 LEAFLET_CONFIG = {
     'DEFAULT_CENTER': (-.023, 36.87),
-    'DEFAULT_ZOOM':5,
+    'DEFAULT_ZOOM':8,
 }
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

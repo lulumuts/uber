@@ -3,13 +3,13 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.template.loader import render_to_string
-from .forms import SignUpForm
+from .forms import SignUpForm,CarForm,DestinationForm
 from .tokens import account_activation_token
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils.encoding import force_bytes,force_text
-from .models import Driver,Pickup_Location
+from .models import Driver,Pickup_Location,Destination,Car
 from django.core.serializers import serialize
 from django.http import HttpResponse
 
@@ -66,12 +66,36 @@ def account_activation_sent(request):
 
 '''
 A function that processes the car registration information
+'''
+def full_display(request):
+    current_user = request.user
+    print (current_user.id)
+    cars = Car.objects.filter(car_user=current_user).first()
+    places= Destination.objects.filter(driver_place=current_user).first()
+    print(places)
+    return render(request, 'driver/start.html',{'cars':cars,'places':places})
 
-def car_registry(request):
+def to_display(request):
+    # current_user = request.user
+    #
+    # places = Destination.objects.filter(driver_place=current_user).first()
+    # print(places)
+    current_user = request.user
+    places= Destination.objects.filter(driver_place=current_user).first()
+
+    return render(request, 'driver/start.html',{'places': places})
 
 def destination(request):
-
-'''
+    current_user = request.user
+    if request.method == 'POST':
+        form= DestinationForm(request.POST, request.FILES)
+        if form.is_valid():
+            destination = form.save(commit = False)
+            destination.save()
+            return redirect('driver/start.html')
+    else:
+        form = DestinationForm()
+    return render(request, 'driver/destination.html',{"form":form})
 
 def map_view(request):
     pickups=serialize('geojson',Pickup_Location.objects.all())
@@ -84,14 +108,14 @@ def pickup(request):
     return render(request, 'driver/pickup.html',{'pickups':pickups})
 
 @login_required(login_url='/accounts/login/')
-def new_driver(request):
+def new_car(request):
     current_user = request.user
     if request.method == 'POST':
-        form= DriverForm(request.POST, request.FILES)
+        form= CarForm(request.POST, request.FILES)
         if form.is_valid():
-            driver = form.save(commit = False)
-            driver.driver_user = current_user
-            driver.save()
+            car = form.save(commit = False)
+            car.save()
+            return redirect('driver/destination.html')
     else:
-        form = DriverForm()
+        form = CarForm()
     return render(request, 'driver/profile.html',{"form":form})

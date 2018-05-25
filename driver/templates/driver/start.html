@@ -1,0 +1,58 @@
+{%extends 'driver/base.html'%}
+{%load static%}
+{%block content%}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+{% leaflet_js %}
+{% leaflet_css %}
+
+
+<!-- Card Dark -->
+<div class="card" style="width:30%;margin-left:7vw;float:left;">
+
+  <!-- Card image -->
+  <div class="view overlay">
+    <img class="card-img-top" src="/driver/media/{{cars.car_photo}}" alt="Card image cap" >
+    <a>
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+
+  <!-- Card content -->
+  <div class="card-body elegant-color white-text rounded-bottom">
+
+    <!-- Social shares button -->
+    <a class="activator waves-effect mr-4"><i class="fa fa-share-alt white-text"></i></a>
+    <!-- Title -->
+
+    <h3 class="card-title">Driver:  {{user.username}}</h3>
+    <hr class="hr-inverse">
+    <!-- Text -->
+    <h4 class="card-text white-text mb-4">Brand:  {{cars.brand}}</h4>
+    <h4 class="card-text white-text mb-4">Number Plate:  {{cars.num_plate}}</h4>
+
+    <!-- Link -->
+    <a href="{%url 'driver:destination'%}" class="white-text d-flex justify-content-end"><h5>Read more <i class="fa fa-angle-double-right"></i></h5></a>
+
+  </div>
+
+</div>
+<h3 style="float:left;margin-left:2%;font-size:250%;">Destination:  {{places.place}}</h3>
+<p style="float:left;margin-top:12%;margin-left:-34%"><a href="{% url 'driver:pickup'%}">Pick up Points for Ngong Road>>>>>></a></p>
+<!-- Card Dark -->
+<div class="container" style="float:right;width:60%;margin-top:1vh;margin-right:1.5%;margin-bottom:10vh;">
+
+
+
+ <script type="text/javascript">
+   var collection = {{ pickups|geojsonfeature|safe }};
+   function map_init(map, options) {
+       L.geoJson(collection).addTo(map);
+
+   }
+ </script>
+
+ {% leaflet_map "gis" callback="window.map_init" %}
+</div>
+
+{%endblock%}

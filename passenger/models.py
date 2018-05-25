@@ -7,6 +7,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Passenger(models.Model):
+    driver_image = models.ImageField(upload_to = 'rider/',blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email_confirmed = models.BooleanField(default=False)
     name= models.CharField(max_length=60)
