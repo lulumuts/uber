@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" style="height:5vh;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" style="margin-left:-20vw;" href="{% url 'driver:driver_home'%}">UBER</a>
+      <a class="navbar-brand" style="margin-left:-29vw;" href="{% url 'driver:driver_home'%}">UBER</a>
     </div>
 
     <!-- Adding a search form -->
@@ -22,8 +22,9 @@
             <a href="/driver/logout" style="margin-left:43vw;color:grey;">LOGOUT</a>
 
         {% else %}
-        <a href="{% url 'driver:signup' %}"><h1>SIGN UP</h1></a>
-        <p><a class="btn btn-default" href="/driver/accounts/login">Login</p>
+        <p><a href="{% url 'driver:signup' %}" style="font-size:100%;float:right;margin-right:14vw;margin-top:6%;color:grey;">SIGNUP</a></p>
+
+        <p><a href="/driver/accounts/login" style="float:right;margin-right:-43vw;margin-top:-3%;color:grey;padding-left:-20vw;">LOGIN</p>
 
         {%endif%}
       </div>
