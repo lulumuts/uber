@@ -9,7 +9,7 @@
 <nav class="navbar navbar-inverse" style="height:5vh;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" style="margin-left:-29vw;" href="{% url 'driver:driver_home'%}">UBER</a>
+      <a class="navbar-brand" href="{% url 'driver:driver_home'%}" id="title">UBER</a>
     </div>
 
     <!-- Adding a search form -->
@@ -22,9 +22,9 @@
             <a href="/driver/logout" style="margin-left:43vw;color:grey;">LOGOUT</a>
 
         {% else %}
-        <p><a href="{% url 'driver:signup' %}" style="font-size:100%;float:right;margin-right:14vw;margin-top:6%;color:grey;">SIGNUP</a></p>
+        <p id="signup"><a href="{% url 'driver:signup' %}">SIGNUP</a></p>
 
-        <p><a href="/driver/accounts/login" style="float:right;margin-right:-43vw;margin-top:-3%;color:grey;padding-left:-20vw;">LOGIN</p>
+        <p id="login"><a href="/driver/accounts/login">LOGIN</a></p>
 
         {%endif%}
       </div>

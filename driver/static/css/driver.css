@@ -1,0 +1,18 @@
+nav{
+
+  font-size:100%;
+  width:100%;
+  color:grey;
+}
+#login{
+  margin-left: 30vw;
+  margin-top: -5.5vh;
+}
+#signup{
+  margin-left: 38vw;
+  margin-top: 3vh;
+
+}
+#title{
+  margin-left: -20vw;
+}
