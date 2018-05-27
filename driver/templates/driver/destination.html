@@ -10,11 +10,12 @@
   {{form.media}}
 
 {% block styles %} {% bootstrap_css %}
+<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
 {% endblock %}
 </head>
 <body>
   <div class="container">
-  <form action="{%url 'driver:destination' %}" method="post" enctype="multipart/form-data" style="width:60%;margin-top:20vh;">
+  <form action="{%url 'driver:destination' %}" method="post" enctype="multipart/form-data" style="width:60%;margin-top:20vh;font-family: 'Cabin Sketch', cursive;">
     {%csrf_token%}
 
     {% bootstrap_form form%}

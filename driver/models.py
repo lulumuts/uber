@@ -10,22 +10,6 @@ from django.contrib.gis.geos import (
 )
 
 
-
-class Destination(models.Model):
-    driver_place=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    place= models.CharField(max_length=100)
-
-
-    def __str__(self):
-        return str(self.place)
-
-    def save_destination(self):
-        self.save()
-
-    def delete_destination(self):
-        self.delete()
-
-
 class Car(models.Model):
     car_user = models.ForeignKey(User, on_delete=models.CASCADE)
     car_photo=models.ImageField(upload_to = 'driver/static/',blank=True)
@@ -45,6 +29,7 @@ class Car(models.Model):
 
 
 class Pickup_Location(models.Model):
+    pointer = models.ForeignKey(User, on_delete=models.CASCADE)
     name=models.CharField(max_length=100)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
@@ -60,6 +45,21 @@ class Pickup_Location(models.Model):
 
     def delete_pickup(self):
         self.delete()
+
+class Destination(models.Model):
+    driver_place=models.ForeignKey(User,on_delete=models.CASCADE)
+    place= models.CharField(max_length=100)
+    pickups = models.ManyToManyField(Pickup_Location)
+
+    def __str__(self):
+        return str(self.place)
+
+    def save_destination(self):
+        self.save()
+
+    def delete_destination(self):
+        self.delete()
+
 
 # Create your models here.
 class Driver(models.Model):

@@ -1,3 +1,12 @@
+.jumbotron{
+  background-image: url('/static/background-pass.jpeg');
+  background-repeat: no-repeat;
+  background-size:cover;
+  height:130vh;
+
+  margin-top: -25%;
+
+}
 nav{
 
   font-size:100%;
@@ -15,13 +24,4 @@ nav{
 }
 #title{
   margin-left: -20vw;
-}
-.jumbotron{
-  background-image: url('/static/back1.jpeg');
-  background-repeat: no-repeat;
-  background-size:cover;
-  height:130vh;
-
-  margin-top: -35%;
-
 }

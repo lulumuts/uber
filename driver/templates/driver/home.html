@@ -1,0 +1,20 @@
+{%extends 'driver/base.html'%}
+
+
+
+{% block content %}
+{{block.super}}
+
+<div class="jumbotron">
+</div>
+{% if user.is_authenticated %}
+
+<h1 style="margin-left:10vw;font-family: 'Cabin Sketch', cursive;">Hey {{user.username}}</h1>
+
+<h2 style="margin-left:10vw;font-family: 'Cabin Sketch', cursive;"><a href="{% url 'driver:profile'%}">1. Register your car.</a></h2>
+
+<h2 style="margin-left:10vw;font-family: 'Cabin Sketch', cursive;"><a href="{% url 'driver:destination'%}">2. Set your Destination.</a></h2>
+
+<h2 style="margin-bottom:10vh;margin-left:10vw;font-family: 'Cabin Sketch', cursive;"><a href="{% url 'driver:start'%}">3. Start your trip.</a></h2>
+{%endif%}
+{% endblock %}

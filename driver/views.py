@@ -17,7 +17,7 @@ from django.http import HttpResponse
 
 
 def driver_home(request):
-    return render(request, 'home.html')
+    return render(request, 'driver/home.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -72,6 +72,7 @@ def full_display(request):
     print (current_user.id)
     cars = Car.objects.filter(car_user=current_user).first()
     places= Destination.objects.filter(driver_place=current_user).first()
+
     print(places)
     return render(request, 'driver/start.html',{'cars':cars,'places':places})
 
@@ -91,8 +92,11 @@ def destination(request):
         form= DestinationForm(request.POST, request.FILES)
         if form.is_valid():
             destination = form.save(commit = False)
+
+            UserProfile= User.objects.filter(username=current_user).first()
+            destination.driver_place=UserProfile
             destination.save()
-            return redirect('driver/start.html')
+            return redirect('/driver/start')
     else:
         form = DestinationForm()
     return render(request, 'driver/destination.html',{"form":form})
@@ -103,7 +107,10 @@ def map_view(request):
     return HttpResponse(pickups, content_type="json")
 
 def pickup(request):
-    pickups=Pickup_Location.objects.all()
+    current_user = request.user
+    places= Destination.objects.filter(driver_place=current_user).first()
+
+    pickups=Pickup_Location.objects.filter(pointer=current_user).first()
     print(pickups)
     return render(request, 'driver/pickup.html',{'pickups':pickups})
 
@@ -114,8 +121,10 @@ def new_car(request):
         form= CarForm(request.POST, request.FILES)
         if form.is_valid():
             car = form.save(commit = False)
+            UserProfile= User.objects.filter(username=current_user).first()
+            car.car_user=UserProfile
             car.save()
-            return redirect('driver/destination.html')
+            return redirect('/driver/destination')
     else:
         form = CarForm()
     return render(request, 'driver/profile.html',{"form":form})
