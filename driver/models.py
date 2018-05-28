@@ -27,6 +27,11 @@ class Car(models.Model):
     def delete_car(self):
         self.delete()
 
+    @staticmethod
+    def update_car(id,car_user,car_photo,brand,num_plate,num_of_seats):
+
+        Car.objects.filter(pk=id).update(car_user=car_user,car_photo=car_photo,brand=brand,num_plate=num_plate,num_of_seats=num_of_seats)
+
 
 class Pickup_Location(models.Model):
     pointer = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -45,6 +50,11 @@ class Pickup_Location(models.Model):
 
     def delete_pickup(self):
         self.delete()
+
+    @staticmethod
+    def update_pickup_location(id,pointer,name,longitude,latitude,geom,objects):
+
+        Pickup_Location.objects.filter(pk=id).update(pointer=pointer,name=name,longitude=longitude,latitude=latitude,geom=geom, objects=objects)
 
 class Destination(models.Model):
     driver_place=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -65,7 +75,12 @@ class Destination(models.Model):
         searches = cls.objects.filter(driver_place__username__icontains=search_term)
         print(searches)
         return searches
-# Create your models here.
+
+    @staticmethod
+    def update_destination(id,driver_place,place,pickups):
+
+        Destination.objects.filter(pk=id).update(driver_place=driver_place,place=place,pickups=pickups)
+
 class Driver(models.Model):
 
     driver_user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)

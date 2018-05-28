@@ -19,6 +19,21 @@ class Passenger(models.Model):
     def __str__(self):
         return str(self.rider_user.username)
 
+    def save_passenger(self):
+        self.save()
+
+    def delete_passenger(self):
+        self.delete()
+
+    def delete(self):
+        self.email_confirmed = False
+        self.save()
+
+    @staticmethod
+    def update_passenger(id,driver_image,name,phone):
+
+        Passenger.objects.filter(pk=id).update(rider_image=rider_image,rider_user=rider_user,name=name,phone=phone)
+
 # @receiver(post_save, sender=User)
 # def update_user_passenger(sender, instance, created, **kwargs):
 #     if created:
