@@ -1,0 +1,49 @@
+{% extends 'passenger/base.html'%}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1>Destinations</h1>
+  {%for item in all_places%}
+
+
+  <!-- <p>{{item.pickups}}</p> -->
+
+
+
+
+<!-- Card -->
+<div class="card" style="width:50%;margin-bottom:5vh;">
+
+  <!-- Card image -->
+  <div class="view overlay">
+
+  </div>
+
+  <!-- Button -->
+  <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3"><i class="fa fa-chevron-right pl-1"></i></a>
+
+  <!-- Card content -->
+  <div class="card-body">
+
+    <!-- Title -->
+    <h4 class="card-title"><p>Where-->{{item.place}}</p></h4>
+    <hr>
+    <!-- Text -->
+    <p class="card-text">  <p>Driver:  {{item.driver_place}}</p></p>
+
+  </div>
+
+  <!-- Card footer -->
+
+</div>
+<!-- Card -->
+{%endfor%}
+  <!-- {%for item in all_drivers%}
+  <p>{{item.car_user}}</p>
+  <p>{{item.brand}}</p>
+  {%endfor%}
+</div> -->
+{%endblock%}

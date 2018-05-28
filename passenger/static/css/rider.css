@@ -25,3 +25,25 @@ nav{
 #title{
   margin-left: -20vw;
 }
+
+form{
+  margin-top: 10vh;
+}
+
+h1{
+
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 10vh;
+}
+.card{
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 1.5em;
+}
+
+h4{
+  font-size: 2em;
+}
+.card-title{
+  
+
+}

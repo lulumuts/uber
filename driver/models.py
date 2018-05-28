@@ -60,7 +60,11 @@ class Destination(models.Model):
     def delete_destination(self):
         self.delete()
 
-
+    @classmethod
+    def search_place(cls,search_term):
+        searches = cls.objects.filter(driver_place__username__icontains=search_term)
+        print(searches)
+        return searches
 # Create your models here.
 class Driver(models.Model):
 
@@ -89,6 +93,9 @@ class Driver(models.Model):
     def update_driver(id,driver_image,name,phone):
 
         Driver.objects.filter(pk=id).update(driver_image=driver_image,name=name,phone=phone)
+
+
+
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):

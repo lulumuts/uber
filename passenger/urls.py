@@ -11,4 +11,5 @@ urlpatterns=[
     url(r'^signup/$', core_views.signup, name='signup'),
     url(r'^logout/$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^going/', core_views.search_destination, name='search_place'),
 ]
