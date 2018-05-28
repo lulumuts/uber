@@ -9,6 +9,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.template.loader import render_to_string
 from driver.models import Destination,Driver,Car
+from django.http import Http404
 
 
 # Create your views here.
@@ -65,3 +66,20 @@ def search_destination(request):
     all_drivers=Car.objects.all()
     print(all_places)
     return render(request, 'passenger/going.html',{'all_places':all_places,"all_drivers":all_drivers})
+
+def single_driver(request,driver_user):
+    current_user = request.user
+    userProfile = Driver.objects.filter(driver_user=current_user).first()
+    car = Car.objects.filter(car_user=userProfile).all()
+    print(car)
+    # try:
+    #     driver = Destination.objects.get(id=UserProfile)
+    #     car = Car.objects.filter(car_user_id=UserProfile).all()
+    #     print(driver)
+    #     print(car)
+    #
+    # except Car.DoesNotExist:
+    #
+    #     raise Http404("Car does not exist")
+
+    return render(request, 'passenger/details.html', {"car":car})

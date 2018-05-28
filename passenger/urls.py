@@ -12,4 +12,5 @@ urlpatterns=[
     url(r'^logout/$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^going/', core_views.search_destination, name='search_place'),
+    url(r'^details/(?P<driver_user>\d+)/$',core_views.single_driver,name='single'),
 ]

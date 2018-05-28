@@ -15,8 +15,8 @@ class Passenger(models.Model):
     final_destination = models.ForeignKey(Destination,null=True)
     pickup_point = models.ForeignKey(Pickup_Location,null=True)
 
-@receiver(post_save, sender=User)
-def update_user_passenger(sender, instance, created, **kwargs):
-    if created:
-        Passenger.objects.create(rider_user=instance)
-    instance.passenger.save()
+# @receiver(post_save, sender=User)
+# def update_user_passenger(sender, instance, created, **kwargs):
+#     if created:
+#         Passenger.objects.create(rider_user=instance)
+#     instance.passenger.save()
