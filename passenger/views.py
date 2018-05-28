@@ -1,4 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from .forms import SignUpForm
+from .models import Passenger
+from .tokens import account_activation_token
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.template.loader import render_to_string
+
 
 # Create your views here.
 def passenger_home(request):
@@ -24,7 +34,7 @@ def signup(request):
             return redirect('account_activation_sent')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form':form})
+    return render(request, 'registration/signup.html', {'form':form})
 
 
 def activate(request, uidb64, token):
@@ -36,7 +46,7 @@ def activate(request, uidb64, token):
 
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
-        user.driver.email_confirmed = True
+        user.passenger.email_confirmed = True
         user.save()
         login(request, user)
         return redirect('/')

@@ -7,9 +7,10 @@
 
 <div class="jumbotron">
 </div>
-<p>CHECKING</p>
+
 {% if user.is_authenticated %}
 
 <h1 style="margin-left:10vw;font-family: 'Cabin Sketch', cursive;">Hey {{user.username}}</h1>
+<p>Start your trip</p>
 {% endif %}
 {%endblock%}

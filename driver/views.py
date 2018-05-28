@@ -17,7 +17,7 @@ from django.http import HttpResponse
 
 
 def driver_home(request):
-    return render(request, 'driver/home.html')
+    return render(request, 'home.html')
 
 def signup(request):
     if request.method == 'POST':

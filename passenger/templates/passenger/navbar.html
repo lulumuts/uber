@@ -1,3 +1,6 @@
+{% load bootstrap3 %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +13,7 @@
 <nav class="navbar navbar-inverse" style="height:5vh;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url '/'%}" id="title">UBER</a>
+      <a class="navbar-brand" href="{% url 'main'%}" id="title">UBER</a>
     </div>
 
     <!-- Adding a search form -->
