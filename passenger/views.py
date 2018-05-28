@@ -10,6 +10,7 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.template.loader import render_to_string
 from driver.models import Destination,Driver,Car
 from django.http import Http404
+from .forms import DestinationForm
 
 
 # Create your views here.
@@ -23,7 +24,10 @@ def signup(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            print(user)
+
+            profile= Passenger.objects.create(rider_user=user)
+            profile.save()
+
             current_site = get_current_site(request)
             subject = 'Activate your Uber Account'
             message = render_to_string('passenger/account_activation_email.html',{
@@ -67,19 +71,38 @@ def search_destination(request):
     print(all_places)
     return render(request, 'passenger/going.html',{'all_places':all_places,"all_drivers":all_drivers})
 
-def single_driver(request,driver_user):
+def single_driver(request,car_user):
     current_user = request.user
-    userProfile = Driver.objects.filter(driver_user=current_user).first()
-    car = Car.objects.filter(car_user=userProfile).all()
+    # userProfile = Driver.objects.filter(driver_user=current_user).first()
+    car = Car.objects.filter(car_user=current_user).first()
     print(car)
-    # try:
-    #     driver = Destination.objects.get(id=UserProfile)
-    #     car = Car.objects.filter(car_user_id=UserProfile).all()
-    #     print(driver)
-    #     print(car)
-    #
-    # except Car.DoesNotExist:
-    #
-    #     raise Http404("Car does not exist")
 
-    return render(request, 'passenger/details.html', {"car":car})
+    current_user = request.user
+    if request.method == 'POST':
+        form= DestinationForm(request.POST, request.FILES)
+        if form.is_valid():
+            destination = form.save(commit = False)
+
+            UserProfile= User.objects.filter(username=current_user).first()
+            destination.driver_place=UserProfile
+            destination.save()
+
+    else:
+        form = DestinationForm()
+
+    return render(request, 'passenger/details.html', {"car":car,"form":form})
+
+def destination(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form= DestinationForm(request.POST, request.FILES)
+        if form.is_valid():
+            destination = form.save(commit = False)
+
+            UserProfile= User.objects.filter(username=current_user).first()
+            destination.driver_place=UserProfile
+            destination.save()
+
+    else:
+        form = DestinationForm()
+    return render(request, 'passenger/details.html',{"form":form})

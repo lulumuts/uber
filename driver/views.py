@@ -26,6 +26,9 @@ def signup(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
+
+            profile= Driver.objects.create(driver_user=user)
+            profile.save()
             print(user)
             current_site = get_current_site(request)
             subject = 'Activate your Uber Account'

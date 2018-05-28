@@ -28,11 +28,10 @@ class CarForm(forms.ModelForm):
 
 class DestinationForm(forms.ModelForm):
 
-
     class Meta:
         model= Destination
         exclude = ['driver_place']
 
         widgets = {
-            'pickups' : forms.CheckboxSelectMultiple(),
+            'pickups' : forms.RadioSelect
         }

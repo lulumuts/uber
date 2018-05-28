@@ -44,6 +44,22 @@ h4{
   font-size: 2em;
 }
 .card-title{
-  
 
+}
+#image{
+  height:50vh;
+  width:40vw;
+}
+#driver{
+  width:50vw;
+  margin-bottom: 10vh;
+}
+
+#book{
+  font-family: 'Cabin Sketch', cursive;
+}
+
+#form{
+  margin-top: -80vh;
+  font-family: 'Cabin Sketch', cursive;float:right;
 }

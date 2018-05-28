@@ -68,7 +68,7 @@ class Destination(models.Model):
 # Create your models here.
 class Driver(models.Model):
 
-    driver_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    driver_user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     name = models.CharField(max_length=100)
     car = models.ForeignKey(Car,null=True)
     passenger_pickup = models.ManyToManyField(Pickup_Location)
@@ -77,7 +77,7 @@ class Driver(models.Model):
     email_confirmed = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.driver_user.username)
 
     def save_driver(self):
         self.save()
@@ -93,12 +93,3 @@ class Driver(models.Model):
     def update_driver(id,driver_image,name,phone):
 
         Driver.objects.filter(pk=id).update(driver_image=driver_image,name=name,phone=phone)
-
-
-
-
-@receiver(post_save, sender=User)
-def update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Driver.objects.create(driver_user=instance)
-    instance.driver.save()

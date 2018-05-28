@@ -1,11 +1,47 @@
 {% extends 'passenger/base.html'%}
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 
 {% block content %}
 
 <div class="container">
-  <h1>Car</h1>
-  {{car.brand}}
+<h1>Driver</h1>
+
+<!-- Card -->
+<div class="card" id="driver">
+
+  <!-- Card image -->
+  <div class="view overlay">
+    <img class="card-img-top" src="driver/media/{{car.car_photo}}" alt="Card image cap" id=image>
+    <a href="#!">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+
+  <!-- Card content -->
+  <div class="card-body">
+
+    <!-- Title -->
+    <h4 class="card-title">Driver: {{car.car_user}}</h4>
+    <!-- Text -->
+    <p class="card-text">Brand: {{car.brand}}</p>
+    <p class="card-text">Number Plate: {{car.num_plate}}</p>
+    <p class="card-text">Number of Seats: {{car.num_of_seats}}</p>
+    <!-- Button -->
+    <a href="#" class="btn btn-secondary">BOOK</a>
+
+  </div>
+
+</div>
+<!-- Card -->
+<form action="{%url 'driver:destination' %}" method="post" enctype="multipart/form-data" style="margin-top:-103vh;font-family: 'Cabin Sketch', cursive;float:right;margin-right:20vw;"id="form">
+  {%csrf_token%}
+
+  {% bootstrap_form form%}
+  <input type="submit" class="btn btn-secondary btn-lg" value="POST" style="border-color:black;font-size:2vh;">
+</form>
+
+
 </div>
 {%endblock%}
